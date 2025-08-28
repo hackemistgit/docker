@@ -12,9 +12,11 @@ RUN echo "<Directory /var/www/html>\n\tAllowOverride All\n\tRequire all granted\
     echo "AddType application/x-httpd-php .phtml" >> /etc/apache2/conf-available/custom.conf && \
     a2enconf custom
     
-# Install PostgreSQL extension
-RUN docker-php-ext-install pgsql pdo pdo_pgsql
-
+# Install required system dependencies
+RUN apt-get update && apt-get install -y \
+    libpq-dev \
+    && docker-php-ext-install pgsql pdo_pgsql
+    
 COPY . /var/www/html/
 
 RUN chown -R www-data:www-data /var/www/html
