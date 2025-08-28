@@ -1,12 +1,15 @@
 <?php
+$host     = "dpg-d2o8of6mcj7s73baa990-a";   // Render internal hostname
+$port     = "5432";                          // Postgres default port
+$dbname   = "lab_e1x0";                      // Database name
+$user     = "lab_e1x0_user";                 // Database user
+$password = "Em7tocSuPyFi127HChLNV1HiU30pytNO"; // Database password
 
-$servername = "dpg-d2o8of6mcj7s73baa990-a";
-$username = "lab_e1x0_user";
-$password = "Em7tocSuPyFi127HChLNV1HiU30pytNO";
-$dbname = "lab_e1x0";
+$conn = pg_connect("host=$host port=$port dbname=$dbname user=$user password=$password");
 
-$conn = new mysqli($servername, $username, $password, $dbname);
-
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
+if (!$conn) {
+    die("Connection failed: " . pg_last_error());
 }
+
+echo "✅ Connected successfully to PostgreSQL!";
+?>
