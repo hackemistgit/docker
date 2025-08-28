@@ -11,6 +11,9 @@ RUN a2enmod rewrite headers
 RUN echo "<Directory /var/www/html>\n\tAllowOverride All\n\tRequire all granted\n\tHeader add Access-Control-Allow-Origin \"*\"\n\tHeader add Access-Control-Allow-Methods \"*\"\n</Directory>" > /etc/apache2/conf-available/custom.conf && \
     echo "AddType application/x-httpd-php .phtml" >> /etc/apache2/conf-available/custom.conf && \
     a2enconf custom
+    
+# Install PostgreSQL extension
+RUN docker-php-ext-install pgsql pdo pdo_pgsql
 
 COPY . /var/www/html/
 
